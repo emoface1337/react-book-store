@@ -1,11 +1,11 @@
 import React from 'react'
 
-const App = () => {
+const Spinner = () => {
     return (
         <div>
-            App
+            Loading...
         </div>
     )
 }
 
-export default App
+export default Spinner
