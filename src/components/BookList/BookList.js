@@ -6,17 +6,21 @@ import booksLoaded from '../../actions/index'
 
 import BookListItem from '../BookListItem/BookListItem'
 import './BookList.css'
+import Spinner from '../Spinner/Spinner'
 
 class BookList extends Component {
 
     componentDidMount() {
-        const { bookstoreService } = this.props
-        const data = bookstoreService.getBooks()
-        this.props.booksLoaded(data)
+        const { bookstoreService, booksLoaded } = this.props
+        bookstoreService.getBooks()
+        .then((data) => booksLoaded(data))
     }
 
     render() {
-        const { books } = this.props
+        const { books, isLoading } = this.props
+        if (isLoading)
+            return <Spinner/>
+
         return (
             <ul className="book-list">
                 {
@@ -30,8 +34,9 @@ class BookList extends Component {
     }
 }
 
-const mapStateToProps = ({ books }) => ({
-    books
+const mapStateToProps = ({ books, isLoading }) => ({
+    books,
+    isLoading
 })
 
 const mapDispatchToProps = {
